@@ -12,16 +12,28 @@ L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?acce
     accessToken: API_KEY
 }).addTo(myMap);
 
-// var c = 'green';
-// var marker = L.marker([45.52, -122.67], {
-//     draggable: true,
-//     title: 'title',
-//     radius: 5,
-//     fillColor: c
-// }).addTo(myMap);
-// // Binding a pop-up to our marker
-// marker.bindPopup("<h1>" + 'title' + "</h1> <hr> <h3>Magnitude: " + 5 + "</h3>").addTo(myMap);
-
+function chooseColor(depth) {
+    var color;
+    if (depth < 10 && depth > -10) {
+        color = '#80ff00';
+        return color;
+    } else if (depth < 30 && depth >= 10) {
+        color = '#bfff00';
+        return color;
+    } else if (depth < 50 && depth >= 30) {
+        color = '#ffff00';
+        return color;
+    } else if (depth < 70 && depth >= 50) {
+        color = '#ffbf00';
+        return color;
+    } else if (depth < 90 && depth >= 70) {
+        color = '#ff8000';
+        return color;
+    } else if (depth >= 90) {
+        color = '#ff4000';
+        return color;
+    };
+};
 
 // Store our API endpoint inside queryUrl
 var queryUrl = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
@@ -33,26 +45,57 @@ d3.json(queryUrl).then(function (data) {
 
 function process(features) {
     console.log(features);
-    // function onEachFeature(feature, layer) {
-    //     layer.bindPopup(`<h1>${feature.properties.title}<h1><hr><h3> ${feature.geometry.coordinates[2]}</h3>`)
-    // };
-    // let earthquakes = L.geoJSON(features,
-    //     { onEachFeature: onEachFeature })
     features.forEach((feature) => {
+        feature.properties.mag = +feature.properties.mag;
         var lon = feature.geometry.coordinates[0];
         var lat = feature.geometry.coordinates[1];
-        var depth = feature.geometry.coordinates[2];
+        var depth = +feature.geometry.coordinates[2];
         var mag = feature.properties.mag;
         var title = feature.properties.title;
-        var c = 'green';
-        // console.log(`${lat}, ${lon}, ${depth}, ${mag}, ${title}`);
+        var c = chooseColor(depth);
+        // chooseColor(depth);
+        // console.log(`${lat}, ${lon},${depth}, ${depth}, ${mag}, ${title}, ${c}`);
         var marker = L.circle([lat, lon], {
             draggable: true,
             title: title,
-            radius: mag*15000,
-            fillColor: c
+            radius: mag * 15000,
+            fillColor: c,
+            fillOpacity: 1,
+            color: 'black',
+            weight: 1
         }).addTo(myMap);
         // Binding a pop-up to our marker
-        marker.bindPopup(`<h3>${title}</h3>`).addTo(myMap);
+        marker.bindPopup(`<h3>${title}</h3>${depth}`).addTo(myMap);
     });
+
+
+    // Set up the legend
+
+    var legend = L.control({ position: "bottomright" });
+    legend.onAdd = function () {
+        var div = L.DomUtil.create("div", "info legend");
+        var limits = ['− 10-10','10-30','30-50','50-70','70-90','90+']
+        var colors = ['#80ff00','#bfff00','#ffff00','#ffbf00','#ff8000','#ff4000'];
+        var labels = [];
+
+        // Add min & max
+        var legendInfo = 
+            "<div class=\"labels\">" + "</div>";
+            // "<div class=\"min\">" + limits[0] + "</div>" +
+            // "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
+            
+
+        div.innerHTML = legendInfo;
+
+        limits.forEach(function (limit, index) {
+            labels.push("<li style=\"background-color: " + colors[index] + "\">" + limit + "</li>");
+        });
+
+        div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+        return div;
+    };
+
+    // Adding legend to the map
+    legend.addTo(myMap);
 };
+
