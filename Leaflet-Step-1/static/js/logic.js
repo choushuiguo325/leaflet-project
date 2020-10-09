@@ -80,22 +80,50 @@ function process(features) {
 
         // Add min & max
         var legendInfo = 
-            "<div class=\"labels\">" + "</div>";
-            // "<div class=\"min\">" + limits[0] + "</div>" +
-            // "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
-            
+            "<div class=\"labels\">" + "</div>";         
 
         div.innerHTML = legendInfo;
 
         limits.forEach(function (limit, index) {
-            labels.push("<li style=\"background-color: " + colors[index] + "\">" + limit + "</li>");
+            labels.push("<li style=\"background-color: " + colors[index] + "\"></li><li>"+ limit + "</li></br>");
+            // labels.push(`<li style="background-color:" ${colors[index]} \></li> <li>${limit}</li></br>`);
         });
-
+        console.log(labels);
         div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+        console.log(div.innerHTML);
         return div;
     };
 
     // Adding legend to the map
     legend.addTo(myMap);
+
+    // // Adding table to the map: alternative
+    // var table = L.control({ position: "bottomright" });
+    // table.onAdd = function () {
+    //     var table = L.DomUtil.create("table");
+    //     var limits = ['− 10-10','10-30','30-50','50-70','70-90','90+']
+    //     var colors = ['#80ff00','#bfff00','#ffff00','#ffbf00','#ff8000','#ff4000'];
+    //     var rows = [];
+
+    //     // Add min & max
+    //     var tableInfo = 
+    //         "<table></table>";      
+
+    //     table.innerHTML = tableInfo;
+
+    //     limits.forEach(function (limit, index) {
+    //         rows.push("<td style=\"background-color: " + colors[index] + "\"></td><td : " + limit + "\"></td>");
+    //     });
+    //     console.log("rows" + rows);
+
+    //     table.innerHTML += "<tr>" + rows.join("") + "</tr>";
+    //     console.log("table.innerHTML" + table.innerHTML);
+    //     return table;
+    // };
+    // table.addTo(myMap);
+
+
+    
+
 };
 
