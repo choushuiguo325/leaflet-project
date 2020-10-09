@@ -36,6 +36,7 @@ var baseMaps = {
   };
 
 var earthquakes = L.layerGroup();
+var tectonic = L.layerGroup();
 var overlayMaps = {
 Earthquakes: earthquakes
 };
@@ -68,14 +69,43 @@ function chooseColor(depth) {
 };
 
 // Store our API endpoint inside queryUrl
-var queryUrl = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
+var queryUrl_1 = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
+var queryUrl_2 = 'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json';
+var queryUrl_3 = 'static/data/PB2002_plates.json';
 
-// access the data in stored in the API
-d3.json(queryUrl).then(function (data) {
-    process(data.features);
+
+// access the data in stored in the earthquakesAPI
+d3.json(queryUrl_1).then(function(data) {
+    earthquakeProcess(data.features);
 });
 
-function process(features) {
+// access the data in stored in the tectonic plates API
+d3.json(queryUrl_3).then(function(data) {
+    console.log("tectonic" + data);
+    // L.geoJSON(data, {
+    //     onEachFeature: popUpMsg
+    //   }).addTo(earthquakes);
+});
+
+// function polygon(feature, layer) {
+//     layer.bindPopup("<h3>" + feature.properties.place +
+//       "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
+//   }
+
+
+
+// L.polygon([
+// [45.54, -122.68],
+// [45.55, -122.68],
+// [45.55, -122.66]
+// ], {
+// color: "purple",
+// fillColor: "purple",
+// fillOpacity: 0.75
+// }).addTo(tectonic);
+
+
+function earthquakeProcess(features) {
     console.log(features);
     features.forEach((feature) => {
         feature.properties.mag = +feature.properties.mag;
@@ -127,7 +157,7 @@ function process(features) {
     };
 
     // Adding legend to the map
-    legend.addTo(earthquakes);
+    legend.addTo(myMap);
 
 };
 
