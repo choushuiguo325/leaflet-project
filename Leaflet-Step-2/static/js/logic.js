@@ -38,7 +38,8 @@ var baseMaps = {
 var earthquakes = L.layerGroup();
 var tectonic = L.layerGroup();
 var overlayMaps = {
-Earthquakes: earthquakes
+"Earthquakes": earthquakes,
+"Tectonic Plates":tectonic
 };
 
 L.control.layers(baseMaps, overlayMaps, {
@@ -71,39 +72,29 @@ function chooseColor(depth) {
 // Store our API endpoint inside queryUrl
 var queryUrl_1 = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
 var queryUrl_2 = 'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json';
-var queryUrl_3 = 'static/data/PB2002_plates.json';
 
+
+
+
+// access the data in stored in the tectonic plates API
+d3.json(queryUrl_2).then(function(data) {
+    var features = data.features;
+    console.log("tectonic", features);
+    L.geoJson(data, {
+        // Style each feature (in this case a neighborhood)
+        style: function(feature) {
+          return {
+            color: "yellow",
+            weight: 1.5
+          };
+        }
+    }).addTo(tectonic);
+});
 
 // access the data in stored in the earthquakesAPI
 d3.json(queryUrl_1).then(function(data) {
     earthquakeProcess(data.features);
 });
-
-// access the data in stored in the tectonic plates API
-d3.json(queryUrl_3).then(function(data) {
-    console.log("tectonic" + data);
-    // L.geoJSON(data, {
-    //     onEachFeature: popUpMsg
-    //   }).addTo(earthquakes);
-});
-
-// function polygon(feature, layer) {
-//     layer.bindPopup("<h3>" + feature.properties.place +
-//       "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
-//   }
-
-
-
-// L.polygon([
-// [45.54, -122.68],
-// [45.55, -122.68],
-// [45.55, -122.66]
-// ], {
-// color: "purple",
-// fillColor: "purple",
-// fillOpacity: 0.75
-// }).addTo(tectonic);
-
 
 function earthquakeProcess(features) {
     console.log(features);
