@@ -71,7 +71,7 @@ Multiple optional and interactive base layers were included. An additional datas
 
 #### static
 
-- It contains the `CSS` file with the formatting information
+- It contains the `css` file with the formatting information
 - It contains the `js` with the `Javascript` code using the D3 library for the interactive plots.
 
 #### images
