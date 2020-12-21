@@ -55,8 +55,7 @@ Multiple optional and interactive base layers were included. An additional datas
 1. Download or clone all the files contained in this repo.
 2. Create your  [Mapbox API Key](https://account.mapbox.com/auth/signup/)
 3. Include `API-KEY`  in the `/Leaflet-Step-1/static/js/config.js` and `/Leaflet-Step-2/static/js/config.js` files.
-4. Refill the in the `/Leaflet-Step-1/static/js/config.js` and `/Leaflet-Step-2/static/js/config.js` files.
-5. Load the `Leaflet-Step-1/index.html` and `Leaflet-Step-2/index.html` files.
+4. Load the `Leaflet-Step-1/index.html` and `Leaflet-Step-2/index.html` files.
 
 ---
 
