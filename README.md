@@ -59,7 +59,7 @@ Multiple optional and interactive base layers were included. An additional datas
 
 ### Leaflet-Step-1
 
-- It contains all the files for the first part of the project.
+- Contains all the files for the first part of the project.
 
 #### index.html
 
