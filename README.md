@@ -2,7 +2,6 @@
 
 ![App Running](images/step_2.gif "App Running")
 
----
 
 ## Project Description
 
@@ -34,7 +33,6 @@ Multiple optional and interactive base layers were included. An additional datas
 - D3 JavaScript
 - Leaflet
 
----
 
 ### Sample app Screenshot
 
@@ -46,18 +44,16 @@ Multiple optional and interactive base layers were included. An additional datas
 
 ![Screenshot](images/step_2.png "Screenshot")
 
----
 
 ## Instructions
 
 ### Steps
 
 1. Download or clone all the files contained in this repo.
-2. Create your  [Mapbox API Key](https://account.mapbox.com/auth/signup/)
+2. Create your  [Mapbox API Key](https://account.mapbox.com/auth/signup/).
 3. Include `API-KEY`  in the `/Leaflet-Step-1/static/js/config.js` and `/Leaflet-Step-2/static/js/config.js` files.
 4. Load the `Leaflet-Step-1/index.html` and `Leaflet-Step-2/index.html` files.
 
----
 
 ## File Description
 
@@ -71,16 +67,16 @@ Multiple optional and interactive base layers were included. An additional datas
 
 #### static
 
-- It contains the `css` file with the formatting information
-- It contains the `js` with the `Javascript` code using the D3 library for the interactive plots.
+- Contains the `css` file with the formatting information
+- Contains the `js` with the `Javascript` code using the D3 library for the interactive plots.
 
 #### images
 
-- It contains the `gif` and `png` files with screenshots of the app running
+- Ccontains the `gif` and `png` files with screenshots of the app running
 
 ### Leaflet-Step-2
 
-- It contains all the files for the second part of the project.
+- Contains all the files for the second part of the project.
 - All folders are the same.
 
 
